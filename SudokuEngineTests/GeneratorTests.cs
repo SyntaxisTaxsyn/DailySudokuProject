@@ -370,4 +370,118 @@ public class LogicTests
         Assert.IsFalse(generator.CheckValid(new Coords(){x=1,y=0,v=8})); // false column
         Assert.IsFalse(generator.CheckValid(new Coords(){x=2,y=1,v=9})); // false box
     }
+
+    [TestMethod]
+    public void CheckRowIgnoreTests_Row0()
+    {
+        pgen = new PartialGenerators();
+        generator = pgen.generator;
+        pgen.GenerateRow(new int[]{1,2,3,4,5,6,7,8,9},0);
+
+        // check several positions on the row to ensure the ignore logic is working
+        Assert.IsTrue(generator.CheckValidRow(new Coords(){x=0,y=0,v=1},true)); 
+        Assert.IsTrue(generator.CheckValidRow(new Coords(){x=1,y=0,v=2},true));
+        Assert.IsTrue(generator.CheckValidRow(new Coords(){x=7,y=0,v=8},true));
+        Assert.IsTrue(generator.CheckValidRow(new Coords(){x=8,y=0,v=9},true));
+
+        // check same tests fail when ignore option is turned off (logic behaves as previous)
+        Assert.IsFalse(generator.CheckValidRow(new Coords(){x=0,y=0,v=1},false)); 
+        Assert.IsFalse(generator.CheckValidRow(new Coords(){x=1,y=0,v=2},false));
+        Assert.IsFalse(generator.CheckValidRow(new Coords(){x=7,y=0,v=8},false));
+        Assert.IsFalse(generator.CheckValidRow(new Coords(){x=8,y=0,v=9},false)); 
+
+    }
+
+    [TestMethod]
+    public void CheckColIgnoreTests_Col0()
+    {
+        pgen = new PartialGenerators();
+        generator = pgen.generator;
+        pgen.GenerateCol(new int[]{1,2,3,4,5,6,7,8,9},0);
+
+        // check several positions on the col to ensure the ignore logic is working
+        Assert.IsTrue(generator.CheckValidCol(new Coords(){x=0,y=0,v=1},true));
+        Assert.IsTrue(generator.CheckValidCol(new Coords(){x=0,y=1,v=2},true));
+        Assert.IsTrue(generator.CheckValidCol(new Coords(){x=0,y=7,v=8},true));
+        Assert.IsTrue(generator.CheckValidCol(new Coords(){x=0,y=8,v=9},true));
+
+        // check same tests fail when ignore option is turned off (logic behaves as previous)
+        Assert.IsFalse(generator.CheckValidCol(new Coords(){x=0,y=0,v=1},false));
+        Assert.IsFalse(generator.CheckValidCol(new Coords(){x=0,y=1,v=2},false));
+        Assert.IsFalse(generator.CheckValidCol(new Coords(){x=0,y=7,v=8},false));
+        Assert.IsFalse(generator.CheckValidCol(new Coords(){x=0,y=8,v=9},false));
+
+    }
+
+    [TestMethod]
+    public void CheckBoxIgnoreTests_Box0()
+    {
+        pgen = new PartialGenerators();
+        generator = pgen.generator;
+        pgen.GenerateBox(new int[3,3]{{1,2,3},{4,5,6},{7,8,9}},0,0);
+
+        // check several positions on the box to ensure the ignore logic is working
+        Assert.IsTrue(generator.CheckValidBox(new Coords(){x=0,y=0,v=1},true));
+        Assert.IsTrue(generator.CheckValidBox(new Coords(){x=2,y=0,v=3},true));
+        Assert.IsTrue(generator.CheckValidBox(new Coords(){x=1,y=1,v=5},true));
+        Assert.IsTrue(generator.CheckValidBox(new Coords(){x=0,y=2,v=7},true));
+        Assert.IsTrue(generator.CheckValidBox(new Coords(){x=2,y=2,v=9},true));
+
+        Assert.IsFalse(generator.CheckValidBox(new Coords(){x=0,y=0,v=1},false));
+        Assert.IsFalse(generator.CheckValidBox(new Coords(){x=2,y=0,v=3},false));
+        Assert.IsFalse(generator.CheckValidBox(new Coords(){x=1,y=1,v=5},false));
+        Assert.IsFalse(generator.CheckValidBox(new Coords(){x=0,y=2,v=7},false));
+        Assert.IsFalse(generator.CheckValidBox(new Coords(){x=2,y=2,v=9},false));
+
+    }
+
+    [TestMethod]
+    public void CheckValidGridTests1()
+    {
+        pgen = new PartialGenerators();
+        generator = pgen.generator;
+        pgen.GenerateGrid(new int[9,9]
+        {
+            {6,3,9,5,7,4,1,8,2},
+            {5,4,1,8,2,9,3,7,6},
+            {7,8,2,6,1,3,9,5,4},
+            {1,9,8,4,6,7,5,2,3},
+            {3,6,5,9,8,2,4,1,7},
+            {4,2,7,1,3,5,8,6,9},
+            {9,5,6,7,4,8,2,3,1},
+            {8,1,3,2,9,6,7,4,5},
+            {2,7,4,3,5,1,6,9,8}
+        });
+
+        Assert.IsTrue(generator.CheckGridComplete()); // default good check (if this passes, the grid is finished and valid)
+        pgen.generator.grid[0,0].currentvalue = 3; // change 1 position and check the validation fails
+        Assert.IsFalse(generator.CheckGridComplete());
+        pgen.generator.grid[0,0].currentvalue = 6;
+        Assert.IsTrue(generator.CheckGridComplete()); // change it back and ensure validation still passes
+    }
+
+    [TestMethod]
+    public void CheckValidGridTests2()
+    {
+        pgen = new PartialGenerators();
+        generator = pgen.generator;
+        pgen.GenerateGrid(new int[9,9]
+        {
+            {1,2,4,5,6,7,8,9,3},
+            {3,7,8,2,9,4,5,1,6},
+            {6,5,9,8,3,1,7,4,2},
+            {9,8,7,1,2,3,4,6,5},
+            {2,3,1,4,5,6,9,7,8},
+            {5,4,6,7,8,9,3,2,1},
+            {8,6,3,9,7,2,1,5,4},
+            {4,9,5,6,1,8,2,3,7},
+            {7,1,2,3,4,5,6,8,9}
+        });
+
+        Assert.IsTrue(generator.CheckGridComplete()); // default good check (if this passes, the grid is finished and valid)
+        pgen.generator.grid[0,0].currentvalue = 3; // change 1 position and check the validation fails
+        Assert.IsFalse(generator.CheckGridComplete());
+        pgen.generator.grid[0,0].currentvalue = 1;
+        Assert.IsTrue(generator.CheckGridComplete()); // change it back and ensure validation still passes
+    }
 }

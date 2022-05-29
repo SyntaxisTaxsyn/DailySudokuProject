@@ -13,7 +13,44 @@ public class SudokuGenerator
                 }
             }
         }
-        public bool CheckValid(Coords coords)
+
+        public bool CheckGridComplete() // tests the entire grid for valid values in every cell (is the game over basically)
+        {
+            bool retval = true;
+
+            for (int y = 0; y < 9; y++)
+            {
+                for (int x = 0; x < 9; x++)
+                {
+                    Coords testcoords = new Coords()
+                    {
+                        x = x,
+                        y = y,
+                        v = grid[y,x].currentvalue
+                    };
+                    if (!CheckValid(testcoords,true))
+                    {
+                        retval = false;
+                    }
+                }
+            }
+
+            return retval;
+        }
+
+        public bool CheckValid(Coords coords,bool ignore) // tests a specific position for a supplied value if it passes all the rules
+        {
+            bool validRow, validCol, validBox;
+
+            validRow = CheckValidRow(coords,ignore);
+            validCol = CheckValidCol(coords,ignore);
+            validBox = CheckValidBox(coords,ignore);
+
+            return (validRow && validCol && validBox) ? true : false;
+
+        }
+
+        public bool CheckValid(Coords coords) // tests a specific position for a supplied value if it passes all the rules
         {
             bool validRow, validCol, validBox, validCoord;
 
@@ -26,7 +63,7 @@ public class SudokuGenerator
             return (validRow && validCol && validBox && validCoord) ? true : false;
 
         }
-        public bool CheckValidRow(Coords coords)
+        public bool CheckValidRow(Coords coords) // check a specific row passes the rules
         {
             bool MatchFound = false;
 
@@ -39,7 +76,35 @@ public class SudokuGenerator
 
             return MatchFound ? false : true;
         }
-        public bool CheckValidCol(Coords coords)
+
+        // Use ignore to avoid comparing the current position against the test value (for checking completed grids and not testing insertion values)
+        public bool CheckValidRow(Coords coords,bool ignore) // check a specific row passes the rules
+        {
+            bool MatchFound = false;
+
+            for(int i = 0;i<9;i++)
+            {
+                if (ignore)
+                {
+                    if (i != coords.x)
+                    {
+                        if(grid[coords.y,i].currentvalue == coords.v){
+                            MatchFound = true;
+                        }
+                    }
+                }
+                else 
+                {
+                    if(grid[coords.y,i].currentvalue == coords.v){
+                        MatchFound = true;
+                    }
+                }
+                
+            }
+
+            return MatchFound ? false : true;
+        }
+        public bool CheckValidCol(Coords coords) // check a specific col passes the rules
         {
             bool MatchFound = false;
 
@@ -52,13 +117,38 @@ public class SudokuGenerator
 
             return MatchFound ? false : true;
         }
-        public bool CheckValidBox(Coords coords)
+
+        public bool CheckValidCol(Coords coords,bool ignore) // check a specific col passes the rules
+        {
+
+            bool MatchFound = false;
+
+            for(int i = 0;i<9;i++)
+            {
+                if (ignore)
+                {
+                    if (i != coords.y)
+                    {
+                        if(grid[i,coords.x].currentvalue == coords.v){
+                            MatchFound = true;
+                        }
+                    }
+                }
+                else 
+                {
+                    if(grid[i,coords.x].currentvalue == coords.v){
+                        MatchFound = true;
+                    }
+                }
+                
+            }
+
+            return MatchFound ? false : true;
+        }
+
+        public bool CheckValidBox(Coords coords) // check a specific box passes the rules
         {
             int boxNo = GetBoxNo(coords);
-            //int xs = boxNo; // rework this logic the same as partial generator logic
-            //int xe = boxNo + 3;
-            //int ys = boxNo;
-            //int ye = boxNo + 3;
             bool MatchFound = false;
 
             for (int y = 0; y < 3; y++)
@@ -77,6 +167,38 @@ public class SudokuGenerator
             return MatchFound ? false : true;
 
         }
+
+        public bool CheckValidBox(Coords coords,bool ignore) // check a specific box passes the rules
+        {
+            int boxNo = GetBoxNo(coords);
+            bool MatchFound = false;
+
+            for (int y = 0; y < 3; y++)
+            {
+                int by = GetYStart(boxNo);
+                for (int x = 0; x < 3; x++)
+                {
+                    int bx = GetXStart(boxNo);
+                    if(grid[by + y,bx + x].currentvalue == coords.v)
+                    {
+                        if (ignore)
+                        {
+                            if (by + y != coords.y && bx + x != coords.x)
+                            {
+                                MatchFound = true;
+                            }
+                        } else {
+                            MatchFound = true;
+                        }
+                        
+                    }
+                }
+            }
+
+            return MatchFound ? false : true;
+
+        }
+
         public int GetBoxNo(Coords coords)
         {
             int x = coords.x;

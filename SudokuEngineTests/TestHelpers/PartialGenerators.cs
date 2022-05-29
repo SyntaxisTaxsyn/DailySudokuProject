@@ -9,6 +9,17 @@ public class PartialGenerators
         generator = new SudokuGenerator();
     }
 
+    public void GenerateGrid(int[,] grid)
+    {
+        for (int y = 0; y < 9; y++)
+        {
+            for (int x = 0; x < 9; x++)
+            {
+                generator.grid[y,x].currentvalue = grid[y,x];
+            }
+        }
+    }
+
     public void GenerateRow(int[] vals,int y){
         for (int i = 0; i < 9; i++)
         {
@@ -35,7 +46,7 @@ public class PartialGenerators
                 generator.grid[by+y,bx+x].currentvalue = vals[y,x];
             }
         }
-        
+
     }
 
     public int GetYStart(int boxNo)
