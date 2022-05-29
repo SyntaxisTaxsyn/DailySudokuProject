@@ -81,6 +81,211 @@ public class CalculationTests
         Assert.IsTrue(generator.GetBoxNo(new Coords(){x = 8,y = 8,v = 0}) == 8);
 
     }
+
+    [TestMethod]
+    public void IncrementTests()
+    {
+        generator = new SudokuGenerator();
+
+        // general increment 1
+        generator.XP = 0;
+        generator.YP = 0;
+        generator.Complete = false;
+        generator.incrementPointer();
+        Assert.IsTrue(generator.XP == 1);
+        Assert.IsTrue(generator.YP == 0);
+        Assert.IsFalse(generator.Complete);
+
+        // general increment 2
+        generator.XP = 3;
+        generator.YP = 4;
+        generator.Complete = false;
+        generator.incrementPointer();
+        Assert.IsTrue(generator.XP == 4);
+        Assert.IsTrue(generator.YP == 4);
+        Assert.IsFalse(generator.Complete);
+
+        // x edge increment and wrap 1
+        generator.XP = 8;
+        generator.YP = 0;
+        generator.Complete = false;
+        generator.incrementPointer();
+        Assert.IsTrue(generator.XP == 0);
+        Assert.IsTrue(generator.YP == 1);
+        Assert.IsFalse(generator.Complete);
+
+        // x edge increment and wrap 2
+        generator.XP = 8;
+        generator.YP = 3;
+        generator.Complete = false;
+        generator.incrementPointer();
+        Assert.IsTrue(generator.XP == 0);
+        Assert.IsTrue(generator.YP == 4);
+        Assert.IsFalse(generator.Complete);
+
+        // x edge final wrap block and complete flag
+        generator.XP = 8;
+        generator.YP = 8;
+        generator.Complete = false;
+        generator.incrementPointer();
+        Assert.IsTrue(generator.XP == 8);
+        Assert.IsTrue(generator.YP == 8);
+        Assert.IsTrue(generator.Complete);
+        
+    }
+
+    [TestMethod]
+    public void DecrementTests()
+    {
+        generator = new SudokuGenerator();
+
+        // general decrement 1
+        generator.XP = 4;
+        generator.YP = 0;
+        generator.Complete = false;
+        generator.decrementPointer();
+        Assert.IsTrue(generator.XP == 3);
+        Assert.IsTrue(generator.YP == 0);
+        Assert.IsFalse(generator.Complete);
+
+        // general decrement 2
+        generator.XP = 7;
+        generator.YP = 3;
+        generator.Complete = false;
+        generator.decrementPointer();
+        Assert.IsTrue(generator.XP == 6);
+        Assert.IsTrue(generator.YP == 3);
+        Assert.IsFalse(generator.Complete);
+
+        // x edge decrement and wrap 1
+        generator.XP = 0;
+        generator.YP = 5;
+        generator.Complete = false;
+        generator.decrementPointer();
+        Assert.IsTrue(generator.XP == 8);
+        Assert.IsTrue(generator.YP == 4);
+        Assert.IsFalse(generator.Complete);
+
+        // x edge decrement and wrap 2
+        generator.XP = 0;
+        generator.YP = 7;
+        generator.Complete = false;
+        generator.decrementPointer();
+        Assert.IsTrue(generator.XP == 8);
+        Assert.IsTrue(generator.YP == 6);
+        Assert.IsFalse(generator.Complete);
+
+        // x edge decrement final wrap block
+        generator.XP = 0;
+        generator.YP = 0;
+        generator.Complete = false;
+        generator.decrementPointer();
+        Assert.IsTrue(generator.XP == 0);
+        Assert.IsTrue(generator.YP == 0);
+        Assert.IsFalse(generator.Complete);
+
+    }
+
+    [TestMethod]
+    public void GetRandomNumberFromSquareTests()
+    {
+        generator = new SudokuGenerator();
+        Square testsquare = generator.grid[0,0];
+        bool result;
+
+        // Random number test 1
+        result = generator.getNextRandomListElement(testsquare);
+        Assert.IsTrue(testsquare.currentvalue > 0); // check the number is assigned
+        Assert.IsTrue(testsquare.currentvalue < 10); // is inside the expected range
+        Assert.IsFalse(testsquare.numbers.Contains(testsquare.currentvalue)); // and that it is removed from the list
+        Assert.IsTrue(testsquare.numbers.Count == 8); // that the list is reduced by exactly 1 item
+        Assert.IsTrue(result); // and that the function returned true when it completed succesfully
+
+        // Random number test 2
+        result = generator.getNextRandomListElement(testsquare);
+        Assert.IsTrue(testsquare.currentvalue > 0); // check the number is assigned
+        Assert.IsTrue(testsquare.currentvalue < 10); // is inside the expected range
+        Assert.IsFalse(testsquare.numbers.Contains(testsquare.currentvalue)); // and that it is removed from the list
+        Assert.IsTrue(testsquare.numbers.Count == 7); // that the list is reduced by exactly 1 item
+        Assert.IsTrue(result); // and that the function returned true when it completed succesfully
+
+        // Random number test 3
+        result = generator.getNextRandomListElement(testsquare);
+        Assert.IsTrue(testsquare.currentvalue > 0); // check the number is assigned
+        Assert.IsTrue(testsquare.currentvalue < 10); // is inside the expected range
+        Assert.IsFalse(testsquare.numbers.Contains(testsquare.currentvalue)); // and that it is removed from the list
+        Assert.IsTrue(testsquare.numbers.Count == 6); // that the list is reduced by exactly 1 item
+        Assert.IsTrue(result); // and that the function returned true when it completed succesfully
+
+        // Random number test 4
+        result = generator.getNextRandomListElement(testsquare);
+        Assert.IsTrue(testsquare.currentvalue > 0); // check the number is assigned
+        Assert.IsTrue(testsquare.currentvalue < 10); // is inside the expected range
+        Assert.IsFalse(testsquare.numbers.Contains(testsquare.currentvalue)); // and that it is removed from the list
+        Assert.IsTrue(testsquare.numbers.Count == 5); // that the list is reduced by exactly 1 item
+        Assert.IsTrue(result); // and that the function returned true when it completed succesfully
+
+        // Random number test 5
+        result = generator.getNextRandomListElement(testsquare);
+        Assert.IsTrue(testsquare.currentvalue > 0); // check the number is assigned
+        Assert.IsTrue(testsquare.currentvalue < 10); // is inside the expected range
+        Assert.IsFalse(testsquare.numbers.Contains(testsquare.currentvalue)); // and that it is removed from the list
+        Assert.IsTrue(testsquare.numbers.Count == 4); // that the list is reduced by exactly 1 item
+        Assert.IsTrue(result); // and that the function returned true when it completed succesfully
+
+        // Random number test 6
+        result = generator.getNextRandomListElement(testsquare);
+        Assert.IsTrue(testsquare.currentvalue > 0); // check the number is assigned
+        Assert.IsTrue(testsquare.currentvalue < 10); // is inside the expected range
+        Assert.IsFalse(testsquare.numbers.Contains(testsquare.currentvalue)); // and that it is removed from the list
+        Assert.IsTrue(testsquare.numbers.Count == 3); // that the list is reduced by exactly 1 item
+        Assert.IsTrue(result); // and that the function returned true when it completed succesfully
+
+        // Random number test 7
+        result = generator.getNextRandomListElement(testsquare);
+        Assert.IsTrue(testsquare.currentvalue > 0); // check the number is assigned
+        Assert.IsTrue(testsquare.currentvalue < 10); // is inside the expected range
+        Assert.IsFalse(testsquare.numbers.Contains(testsquare.currentvalue)); // and that it is removed from the list
+        Assert.IsTrue(testsquare.numbers.Count == 2); // that the list is reduced by exactly 1 item
+        Assert.IsTrue(result); // and that the function returned true when it completed succesfully
+
+        // Random number test 8
+        result = generator.getNextRandomListElement(testsquare);
+        Assert.IsTrue(testsquare.currentvalue > 0); // check the number is assigned
+        Assert.IsTrue(testsquare.currentvalue < 10); // is inside the expected range
+        Assert.IsFalse(testsquare.numbers.Contains(testsquare.currentvalue)); // and that it is removed from the list
+        Assert.IsTrue(testsquare.numbers.Count == 1); // that the list is reduced by exactly 1 item
+        Assert.IsTrue(result); // and that the function returned true when it completed succesfully
+
+        // Random number test 9
+        result = generator.getNextRandomListElement(testsquare);
+        Assert.IsTrue(testsquare.currentvalue > 0); // check the number is assigned
+        Assert.IsTrue(testsquare.currentvalue < 10); // is inside the expected range
+        Assert.IsFalse(testsquare.numbers.Contains(testsquare.currentvalue)); // and that it is removed from the list
+        Assert.IsTrue(testsquare.numbers.Count == 0); // that the list is reduced by exactly 1 item
+        Assert.IsTrue(result); // and that the function returned true when it completed succesfully
+
+        // List is empty now, try to remove another item from the list and test the response
+        result = generator.getNextRandomListElement(testsquare);
+        Assert.IsTrue(testsquare.currentvalue == 0); // check a 0 value was assigned
+        Assert.IsFalse(result); // and false was returned, list is empty, regenerate it
+
+        Assert.IsTrue(generator.grid[0,0].numbers.Count == 0); // make sure the grid is empty
+        generator.resetSquare(testsquare);
+        Assert.IsTrue(testsquare.numbers.Count == 9); // check square number list was regenerated successfully
+        Assert.IsTrue(testsquare.numbers.Contains(1)); // check that all numbers exist in the list 
+        Assert.IsTrue(testsquare.numbers.Contains(2));
+        Assert.IsTrue(testsquare.numbers.Contains(3));
+        Assert.IsTrue(testsquare.numbers.Contains(4));
+        Assert.IsTrue(testsquare.numbers.Contains(5));
+        Assert.IsTrue(testsquare.numbers.Contains(6));
+        Assert.IsTrue(testsquare.numbers.Contains(7));
+        Assert.IsTrue(testsquare.numbers.Contains(8));
+        Assert.IsTrue(testsquare.numbers.Contains(9));
+
+    }
+
+
 }
 
 [TestClass]

@@ -1,7 +1,41 @@
-﻿namespace SudokuEngine;
+﻿using System.Linq;
+
+namespace SudokuEngine;
 public class SudokuGenerator
     {
         public Square[,] grid;
+        int _xP; // x pointer
+        int _yP; // y pointer
+        bool _cmp; // complete is true when x and y pointers = 8
+
+        public int XP {
+            get{
+                return _xP;
+            }
+            set{
+                _xP = value;
+            }
+        }
+
+        public int YP {
+            get{
+                return _yP;
+            }
+            set{
+                _yP = value;
+            }
+        }
+
+        public bool Complete {
+            get{
+                return _cmp;
+            }
+            set{
+                _cmp = value;
+            }
+        }
+
+
         public SudokuGenerator()
         {
             grid = new Square[9,9];
@@ -11,6 +45,93 @@ public class SudokuGenerator
                 {
                     grid[y,x] = new Square();
                 }
+            }
+        }
+
+        public void GenerateGrid() // Main method to generate a new random valid sudoku grid
+        {
+            // Generation occurs using a brute force backtracking algorithm
+            // The general sequence of events here will be thus
+            // start at square 0,0 (squares will be advanced through from 0,0 to 0,8 then 1,0 to 1,8 and so on)
+            // for each square pick a random number from the list of av available numbers for that square
+            // if the nummber passes all valid checks, then insert and move to the next square
+            // contine until a square is found where no valid numbers are found
+            // reset current square and backtrack the pointer to the previous square
+            // resume picking from the list available at this square
+            // either find another number and proceed, or find nothing and backtrack again
+            // sequence is complete when all squares have a number
+            // run the checkgridcomplete method at the end to test if the entire grid is compatible
+
+            _xP = 0;
+            _yP = 0;
+            _cmp = false;
+
+            // Main loop to generate grid, will terminate upon increment pointer function detecting the end of the grid and
+            // setting the _cmp (complete) flag to true
+            do
+            {
+                
+            } while (_cmp == false);
+        }
+
+        // takes an input element of type square, selects a random element from the list
+        // removes this element from the list, and sets this value as the current square value
+        // if no elements are in the list to select, then this function returns false
+        // indicating that a decrement pointer operation is required, and also a square reset
+        public bool getNextRandomListElement(Square sq)
+        {
+            bool retval = true;
+            Random rnd = new Random();
+
+            if (sq.numbers.Count > 0)
+            {
+                int i = (int)rnd.NextInt64(0,sq.numbers.Count-1); // index
+                int s = sq.numbers[i]; // selection
+                sq.numbers.Remove(s);
+                sq.currentvalue = s;
+            }
+            else
+            {
+                sq.currentvalue = 0;
+                retval = false;
+            }
+
+            return retval;
+            
+        }
+
+        public void resetSquare(Square sq)
+        {
+            sq.reset();
+        }
+
+        public void incrementPointer()
+        {
+            _xP += 1;
+            if(_xP == 9){
+                _yP += 1;
+                _xP = 0;
+            }
+            if (_yP == 9)
+            {
+                _cmp = true;
+                _xP = 8;
+                _yP = 8;
+            }
+        }
+
+        public void decrementPointer()
+        {
+            _xP -= 1;
+            if (_xP < 0)
+            {
+                _yP -= 1;
+                _xP = 8;
+            }
+            if (_yP == -1)
+            {
+                _yP = 0;
+                _xP = 0;
             }
         }
 
@@ -312,5 +433,12 @@ public class SudokuGenerator
         public Square()
         {
             numbers = new List<int>(){1,2,3,4,5,6,7,8,9};
+            currentvalue = 0;
+        }
+
+        public void reset() // resets the number list without newupping the entire object, we dont want to lose the reference in code
+        {
+            numbers = new List<int>(){1,2,3,4,5,6,7,8,9};
+            currentvalue = 0;
         }
     }
