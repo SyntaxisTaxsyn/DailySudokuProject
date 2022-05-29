@@ -70,8 +70,30 @@ public class SudokuGenerator
             // setting the _cmp (complete) flag to true
             do
             {
-                
+                bool result = getNextRandomListElement(grid[_yP,_xP]);
+                if (result)
+                {
+                    Coords c = new Coords()
+                    {
+                        x = _xP,
+                        y = _yP,
+                        v = grid[_yP,_xP].currentvalue
+                    };
+
+                    if (CheckValid(c,true))
+                    {
+                        incrementPointer();
+                    }  
+                } 
+                else
+                {
+                    grid[_yP,_xP].reset();
+                    decrementPointer();
+                }
+
             } while (_cmp == false);
+
+            Console.WriteLine("Whoopee"); // if im here then the algorithm has worked :)
         }
 
         // takes an input element of type square, selects a random element from the list
@@ -179,7 +201,8 @@ public class SudokuGenerator
             validCol = CheckValidCol(coords);
             validBox = CheckValidBox(coords);
             
-            if (grid[coords.y,coords.x].currentvalue == 0){validCoord = true;}else{validCoord = false;}
+            //if (grid[coords.y,coords.x].currentvalue == 0){validCoord = true;}else{validCoord = false;}
+            validCoord = true;
 
             return (validRow && validCol && validBox && validCoord) ? true : false;
 

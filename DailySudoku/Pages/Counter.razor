@@ -1,0 +1,41 @@
+﻿@page "/counter"
+@inject SudokuGenerator generator;
+
+<PageTitle>Counter</PageTitle>
+
+<h1>Counter</h1>
+
+<p role="status">Current count: @currentCount</p>
+
+<button class="btn btn-primary" @onclick="IncrementCount">Click me</button>
+<button class="btn btn-primary" @onclick="GenerateGrid">Generate Sudoku Grid</button>
+
+@if (generator != null)
+{
+    <table>
+    @for (int y = 0; y < 9; y++)
+    {
+        <tr>
+        @for (int x = 0; x < 9; x++)
+        {
+            <td>
+                @generator.grid[y,x].currentvalue.ToString()
+            </td>
+        }
+        </tr>
+    }
+    </table>
+}
+
+@code {
+    private int currentCount = 0;
+    private void IncrementCount()
+    {
+        currentCount++;
+    }
+
+    void GenerateGrid(){
+        generator = new SudokuGenerator();
+        generator.GenerateGrid();
+    }
+}
