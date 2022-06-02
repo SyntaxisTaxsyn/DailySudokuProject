@@ -19,7 +19,10 @@
         @for (int x = 0; x < 9; x++)
         {
             <td>
-                @generator.grid[y,x].currentvalue.ToString()
+                @if (generator.grid[y,x].isSet)
+                {
+                    <button type="button" class="btn btn-light btn-square-md">@generator.grid[y,x].currentvalue.ToString()</button>
+                }
             </td>
         }
         </tr>
@@ -36,6 +39,7 @@
 
     void GenerateGrid(){
         generator = new SudokuGenerator();
+        generator.removalQty = 10;
         generator.GenerateGrid();
     }
 }

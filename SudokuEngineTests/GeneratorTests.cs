@@ -194,7 +194,7 @@ public class CalculationTests
         bool result;
 
         // Random number test 1
-        result = generator.getNextRandomListElement(testsquare);
+        result = testsquare.getNextRandomListElement();
         Assert.IsTrue(testsquare.currentvalue > 0); // check the number is assigned
         Assert.IsTrue(testsquare.currentvalue < 10); // is inside the expected range
         Assert.IsFalse(testsquare.numbers.Contains(testsquare.currentvalue)); // and that it is removed from the list
@@ -202,7 +202,7 @@ public class CalculationTests
         Assert.IsTrue(result); // and that the function returned true when it completed succesfully
 
         // Random number test 2
-        result = generator.getNextRandomListElement(testsquare);
+        result = testsquare.getNextRandomListElement();
         Assert.IsTrue(testsquare.currentvalue > 0); // check the number is assigned
         Assert.IsTrue(testsquare.currentvalue < 10); // is inside the expected range
         Assert.IsFalse(testsquare.numbers.Contains(testsquare.currentvalue)); // and that it is removed from the list
@@ -210,7 +210,7 @@ public class CalculationTests
         Assert.IsTrue(result); // and that the function returned true when it completed succesfully
 
         // Random number test 3
-        result = generator.getNextRandomListElement(testsquare);
+        result = testsquare.getNextRandomListElement();
         Assert.IsTrue(testsquare.currentvalue > 0); // check the number is assigned
         Assert.IsTrue(testsquare.currentvalue < 10); // is inside the expected range
         Assert.IsFalse(testsquare.numbers.Contains(testsquare.currentvalue)); // and that it is removed from the list
@@ -218,7 +218,7 @@ public class CalculationTests
         Assert.IsTrue(result); // and that the function returned true when it completed succesfully
 
         // Random number test 4
-        result = generator.getNextRandomListElement(testsquare);
+        result = testsquare.getNextRandomListElement();
         Assert.IsTrue(testsquare.currentvalue > 0); // check the number is assigned
         Assert.IsTrue(testsquare.currentvalue < 10); // is inside the expected range
         Assert.IsFalse(testsquare.numbers.Contains(testsquare.currentvalue)); // and that it is removed from the list
@@ -226,7 +226,7 @@ public class CalculationTests
         Assert.IsTrue(result); // and that the function returned true when it completed succesfully
 
         // Random number test 5
-        result = generator.getNextRandomListElement(testsquare);
+        result = testsquare.getNextRandomListElement();
         Assert.IsTrue(testsquare.currentvalue > 0); // check the number is assigned
         Assert.IsTrue(testsquare.currentvalue < 10); // is inside the expected range
         Assert.IsFalse(testsquare.numbers.Contains(testsquare.currentvalue)); // and that it is removed from the list
@@ -234,7 +234,7 @@ public class CalculationTests
         Assert.IsTrue(result); // and that the function returned true when it completed succesfully
 
         // Random number test 6
-        result = generator.getNextRandomListElement(testsquare);
+        result = testsquare.getNextRandomListElement();
         Assert.IsTrue(testsquare.currentvalue > 0); // check the number is assigned
         Assert.IsTrue(testsquare.currentvalue < 10); // is inside the expected range
         Assert.IsFalse(testsquare.numbers.Contains(testsquare.currentvalue)); // and that it is removed from the list
@@ -242,7 +242,7 @@ public class CalculationTests
         Assert.IsTrue(result); // and that the function returned true when it completed succesfully
 
         // Random number test 7
-        result = generator.getNextRandomListElement(testsquare);
+        result = testsquare.getNextRandomListElement();
         Assert.IsTrue(testsquare.currentvalue > 0); // check the number is assigned
         Assert.IsTrue(testsquare.currentvalue < 10); // is inside the expected range
         Assert.IsFalse(testsquare.numbers.Contains(testsquare.currentvalue)); // and that it is removed from the list
@@ -250,7 +250,7 @@ public class CalculationTests
         Assert.IsTrue(result); // and that the function returned true when it completed succesfully
 
         // Random number test 8
-        result = generator.getNextRandomListElement(testsquare);
+        result = testsquare.getNextRandomListElement();
         Assert.IsTrue(testsquare.currentvalue > 0); // check the number is assigned
         Assert.IsTrue(testsquare.currentvalue < 10); // is inside the expected range
         Assert.IsFalse(testsquare.numbers.Contains(testsquare.currentvalue)); // and that it is removed from the list
@@ -258,7 +258,7 @@ public class CalculationTests
         Assert.IsTrue(result); // and that the function returned true when it completed succesfully
 
         // Random number test 9
-        result = generator.getNextRandomListElement(testsquare);
+        result = testsquare.getNextRandomListElement();
         Assert.IsTrue(testsquare.currentvalue > 0); // check the number is assigned
         Assert.IsTrue(testsquare.currentvalue < 10); // is inside the expected range
         Assert.IsFalse(testsquare.numbers.Contains(testsquare.currentvalue)); // and that it is removed from the list
@@ -266,7 +266,7 @@ public class CalculationTests
         Assert.IsTrue(result); // and that the function returned true when it completed succesfully
 
         // List is empty now, try to remove another item from the list and test the response
-        result = generator.getNextRandomListElement(testsquare);
+        result = testsquare.getNextRandomListElement();
         Assert.IsTrue(testsquare.currentvalue == 0); // check a 0 value was assigned
         Assert.IsFalse(result); // and false was returned, list is empty, regenerate it
 

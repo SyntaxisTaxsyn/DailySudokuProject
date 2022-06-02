@@ -8,6 +8,15 @@ public class SudokuGenerator
         int _yP; // y pointer
         bool _cmp; // complete is true when x and y pointers = 8
 
+        /// <summary>Used to store the original values of the generated grid for checking against iterative solver outputs</summary>
+        int[,] setGrid = new int[9,9];
+
+        /// <summary>
+        /// Sets the quantity of squares to remove from the grid after generation is complete
+        /// </summary>
+        /// <value></value>
+        public int removalQty {get;set;}
+
         public int XP {
             get{
                 return _xP;
@@ -48,7 +57,21 @@ public class SudokuGenerator
             }
         }
 
-        public void GenerateGrid() // Main method to generate a new random valid sudoku grid
+        public void Remove1RandomSquare(){
+            Random rnd = new Random();
+            int x = rnd.Next(0,9);
+            int y = rnd.Next(0,9);
+            grid[y,x].currentvalue = 0;
+            grid[y,x].isSet = false;
+            grid[y,x].reset();
+
+        }
+        
+        /// <summary>
+        /// Main method to generate a new random valid sudoku grid, remove random positions from the grid and
+        /// Check the continued validity of the puzzle at each step
+        /// </summary>
+        public void GenerateGrid() // 
         {
             // Generation occurs using a brute force backtracking algorithm
             // The general sequence of events here will be thus
@@ -70,7 +93,7 @@ public class SudokuGenerator
             // setting the _cmp (complete) flag to true
             do
             {
-                bool result = getNextRandomListElement(grid[_yP,_xP]);
+                bool result = grid[_yP,_xP].getNextRandomListElement();
                 if (result)
                 {
                     Coords c = new Coords()
@@ -93,34 +116,37 @@ public class SudokuGenerator
 
             } while (_cmp == false);
 
-            Console.WriteLine("Whoopee"); // if im here then the algorithm has worked :)
+            // Sets all squares to isSet = true, this is used to indicate that a valid value has been found for this cell 
+            // Later in the algorithm we use it to unset cells so we can Refind the solution and check 2 things
+            // 1) a solution still exists for the given unset cells
+            // 2) only 1 solution exists
+            foreach (var sq in grid)
+            {
+                sq.isSet = true;
+            }
+
+            // retain the original grid settings
+            for (int y = 0; y < 9; y++)
+            {
+                for (int x = 0; x < 9; x++)
+                {
+                    setGrid[y,x] = grid[y,x].currentvalue;
+                }
+            }
+            
+            for (int i = 0; i < removalQty; i++)
+            {
+                Remove1RandomSquare();
+            }
+            
+
+            //Console.WriteLine("Whoopee"); // if im here then the algorithm has worked :)
         }
 
         // takes an input element of type square, selects a random element from the list
         // removes this element from the list, and sets this value as the current square value
         // if no elements are in the list to select, then this function returns false
         // indicating that a decrement pointer operation is required, and also a square reset
-        public bool getNextRandomListElement(Square sq)
-        {
-            bool retval = true;
-            Random rnd = new Random();
-
-            if (sq.numbers.Count > 0)
-            {
-                int i = (int)rnd.NextInt64(0,sq.numbers.Count-1); // index
-                int s = sq.numbers[i]; // selection
-                sq.numbers.Remove(s);
-                sq.currentvalue = s;
-            }
-            else
-            {
-                sq.currentvalue = 0;
-                retval = false;
-            }
-
-            return retval;
-            
-        }
 
         public void resetSquare(Square sq)
         {
@@ -453,13 +479,39 @@ public class SudokuGenerator
     {
         public List<int> numbers;
         public int currentvalue = 0;
+        public bool isSet;
         public Square()
         {
             numbers = new List<int>(){1,2,3,4,5,6,7,8,9};
             currentvalue = 0;
         }
 
-        public void reset() // resets the number list without newupping the entire object, we dont want to lose the reference in code
+        public bool getNextRandomListElement()
+        {
+            bool retval = true;
+            Random rnd = new Random();
+
+            if (numbers.Count > 0)
+            {
+                int i = (int)rnd.NextInt64(0,numbers.Count); // index
+                int s = numbers[i]; // selection
+                numbers.Remove(s);
+                currentvalue = s;
+            }
+            else
+            {
+                currentvalue = 0;
+                retval = false;
+            }
+
+            return retval;
+            
+        }
+
+        /// <summary>
+        /// resets the number list without newupping the entire object, we dont want to lose the reference in code
+        /// </summary>
+        public void reset()
         {
             numbers = new List<int>(){1,2,3,4,5,6,7,8,9};
             currentvalue = 0;
