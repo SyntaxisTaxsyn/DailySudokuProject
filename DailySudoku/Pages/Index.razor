@@ -1,9 +1,101 @@
 ﻿@page "/"
+@inject SudokuGenerator generator;
 
-<PageTitle>Index</PageTitle>
+<PageTitle>Daily Sudoku</PageTitle>
 
-<h1>Hello, world!</h1>
+<div class="container">
+    <h1>Daily Sudoku</h1>
+    @if (generator != null)
+    {
+        cellIdx = 0;
+        <table id="grid">
+            @for (int y = 0; y < 9; y++)
+            {
+                <tr>
+                    @for (int x = 0; x < 9; x++)
+                    {
+                        // These local variables here are necessary to decouple the current value of the for loop iterators from thier final values
+                        int iCY = y;
+                        int iCX = x;
+                        string isEnabled = generator.grid[iCY,iCX].isSet ? "disabled" : "";
+                        <td>
+                            @if (generator.grid[y,x].isSet)
+                            {
+                                <input id="cell-@cellIdx"
+                                type="text" 
+                                @bind-value="@generator.grid[y,x].currentvalue" 
+                                disabled
+                                @onmousedown="() => setSelected(iCY,iCX)"
+                                @ontouchstart="() => setSelected(iCY,iCX)"
+                                >
+                            }
+                            else
+                            {
+                                <input id="cell-@cellIdx"
+                                type="text"
+                                
+                                @onmousedown="() => setSelected(iCY,iCX)"
+                                @ontouchstart="() => setSelected(iCY,iCX)"
+                                >
+                            }
+                        </td>
 
-Welcome to your new app.
+                        cellIdx++;
+                    }
+                </tr>
+            }
+        </table>
+    }
+    <div>
+        @for (int c = 1; c < 10; c++)
+        {
+            int cc = c;
+            <button type="button" class="btn btn-primary btn-square-md" @onclick="() => enterValue(cc)">@c</button>
+        }
+    </div>
+    <button class="btn btn-primary" @onclick="GenerateGrid">Generate</button>
+</div>
+<p>
+    cy = @cY
+    cx = @cX
+</p>
 
-<SurveyPrompt Title="How is Blazor working for you?" />
+
+@code
+{
+    int cellIdx = 0;
+    int cY;
+    int cX;
+    void GenerateGrid(){
+        generator = new SudokuGenerator();
+        generator.removalQty = 10;
+        generator.GenerateGrid();
+    }
+
+    void enterValue(int val){
+        if (!generator.grid[cY,cX].isSet)
+        {
+            generator.grid[cY,cX].currentvalue = val;
+            generator.grid[cY,cX].isSet  = true;
+            //StateHasChanged();
+        }
+    }
+
+    void setSelected(int y, int x)
+    {
+        cX = x;
+        cY = y;
+    }
+
+    string getStatus(Square sq)
+    {
+        if (sq.isSet)
+        {
+            return "disabled";
+        }
+        else
+        {
+            return "";
+        }
+    }
+}

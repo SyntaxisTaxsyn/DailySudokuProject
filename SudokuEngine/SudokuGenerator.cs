@@ -53,6 +53,8 @@ public class SudokuGenerator
                 for(var x = 0;x<9;x++)
                 {
                     grid[y,x] = new Square();
+                    grid[y,x].xref = x;
+                    grid[y,x].yref = y;
                 }
             }
         }
@@ -480,6 +482,8 @@ public class SudokuGenerator
         public List<int> numbers;
         public int currentvalue = 0;
         public bool isSet;
+        public int xref;
+        public int yref;
         public Square()
         {
             numbers = new List<int>(){1,2,3,4,5,6,7,8,9};
