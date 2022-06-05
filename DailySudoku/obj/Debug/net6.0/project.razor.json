@@ -226,6 +226,39 @@
         }
       },
       {
+        "HashCode": 197126955,
+        "Kind": "Components.Component",
+        "Name": "DailySudoku.Shared.NavMenu",
+        "AssemblyName": "DailySudoku",
+        "CaseSensitive": true,
+        "TagMatchingRules": [
+          {
+            "TagName": "NavMenu"
+          }
+        ],
+        "Metadata": {
+          "Runtime.Name": "Components.IComponent",
+          "Common.TypeName": "DailySudoku.Shared.NavMenu"
+        }
+      },
+      {
+        "HashCode": 1749971206,
+        "Kind": "Components.Component",
+        "Name": "DailySudoku.Shared.NavMenu",
+        "AssemblyName": "DailySudoku",
+        "CaseSensitive": true,
+        "TagMatchingRules": [
+          {
+            "TagName": "DailySudoku.Shared.NavMenu"
+          }
+        ],
+        "Metadata": {
+          "Runtime.Name": "Components.IComponent",
+          "Common.TypeName": "DailySudoku.Shared.NavMenu",
+          "Components.NameMatch": "Components.FullyQualifiedNameMatch"
+        }
+      },
+      {
         "HashCode": -152413933,
         "Kind": "Components.Component",
         "Name": "DailySudoku.Shared.MainLayout",
@@ -318,39 +351,6 @@
           "Runtime.Name": "Components.None",
           "Common.TypeName": "DailySudoku.Shared.MainLayout.Body",
           "Components.IsSpecialKind": "Components.ChildContent",
-          "Components.NameMatch": "Components.FullyQualifiedNameMatch"
-        }
-      },
-      {
-        "HashCode": 197126955,
-        "Kind": "Components.Component",
-        "Name": "DailySudoku.Shared.NavMenu",
-        "AssemblyName": "DailySudoku",
-        "CaseSensitive": true,
-        "TagMatchingRules": [
-          {
-            "TagName": "NavMenu"
-          }
-        ],
-        "Metadata": {
-          "Runtime.Name": "Components.IComponent",
-          "Common.TypeName": "DailySudoku.Shared.NavMenu"
-        }
-      },
-      {
-        "HashCode": 1749971206,
-        "Kind": "Components.Component",
-        "Name": "DailySudoku.Shared.NavMenu",
-        "AssemblyName": "DailySudoku",
-        "CaseSensitive": true,
-        "TagMatchingRules": [
-          {
-            "TagName": "DailySudoku.Shared.NavMenu"
-          }
-        ],
-        "Metadata": {
-          "Runtime.Name": "Components.IComponent",
-          "Common.TypeName": "DailySudoku.Shared.NavMenu",
           "Components.NameMatch": "Components.FullyQualifiedNameMatch"
         }
       },

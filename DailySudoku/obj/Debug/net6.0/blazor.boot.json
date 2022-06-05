@@ -197,14 +197,14 @@
       "netstandard.dll": "sha256-qpOz\/RBwhlIYfaE2GDEmjiproxkvSf2b9GeqHxvH+lg=",
       "System.Private.CoreLib.dll": "sha256-sfzSZ3YKC2rpF77TVOKLuPgQag93QXr9U4AUc9d\/LKA=",
       "SudokuEngine.dll": "sha256-bsEykwF8h8uWkj7+W3fk71dl36bFzrhPyZfyT66WQPI=",
-      "DailySudoku.dll": "sha256-wWktQDQ6kQIMJrKmhoAQ4OC21plsFclGIUKfHypaj60="
+      "DailySudoku.dll": "sha256-5yl+FKL1P+IILzNrRTXwDkTh6aFLou8trl2QWSkkP1w="
     },
     "extensions": null,
     "lazyAssembly": null,
     "libraryInitializers": null,
     "pdb": {
       "SudokuEngine.pdb": "sha256-Kv7q1CLUCZdJNke2aaHtm31Vo9Fd620KTkI+u7rUF+k=",
-      "DailySudoku.pdb": "sha256-zDqYWa9crv7JmokdM5SANBP61\/zMRbvu+hSHJCxtBGI="
+      "DailySudoku.pdb": "sha256-BofGAeHUPdmDWJ+KGKej31v3u7sqST5waX9g0hU4SH4="
     },
     "runtime": {
       "dotnet.6.0.5.0gfmhi8p5n.js": "sha256-783uOt0jgblQfP6Yz5TJeuW2xxtl6UHZQPngZtCz79U=",
