@@ -185,6 +185,27 @@ public class SudokuGenerator
             }
         }
 
+        /// <summary>
+        /// This function is used to test if the grid is filled with numbers or not
+        /// Doesn't handle if the grid is valid or not, is used in conjunction with the CheckGridComplete function
+        /// to determine if the game is both complete and valid (win) or filled and not valid (lose)
+        /// </summary>
+        /// <returns>True when every cell in the grid has a number that is not 0</returns>
+        public bool CheckFilled()
+        {
+            for (int y = 0; y < 9; y++)
+            {
+                for (int x = 0; x < 9; x++)
+                {
+                    if(grid[y,x].currentvalue == 0)
+                    {
+                        return false;
+                    }
+                }
+            }
+            return true;
+        }
+
         public bool CheckGridComplete() // tests the entire grid for valid values in every cell (is the game over basically)
         {
             bool retval = true;

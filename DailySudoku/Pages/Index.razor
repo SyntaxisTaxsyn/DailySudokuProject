@@ -172,36 +172,50 @@
     </div>
     <br>
     <br>
-    <div class="row">
-        <div class="col-12 dflex justify-content-center">
-            <table class="center">
-                <tr >
-                    @for (int c = 1; c < 10; c++)
-                    {
-                        int cc = c;
-                        <td>
-                            <input 
-                                @onclick="() => enterValue(cc)"
-                                @onmousedown="() => enterValue(cc)"
-                                @ontouchstart="() => enterValue(cc)"
-                                @bind-value="cc" 
-                                readonly/>
-                            <!--<button type="button" class="btn btn-primary btn-square-sm" @onclick="() => enterValue(cc)">@c</button>-->
-                        </td>
-                    }
-                </tr>
-            </table>
+    @if (Message != "")
+    {
+        <div class="alert @AlertType" role="alert">
+            @Message
         </div>
-    </div>
+    }
+    else
+    {
+        <div class="row">
+            <div class="col-12 dflex justify-content-center">
+                <table class="center">
+                    <tr >
+                        @for (int c = 1; c < 10; c++)
+                        {
+                            int cc = c;
+                            <td>
+                                <input 
+                                    @onclick="() => enterValue(cc)"
+                                    @onmousedown="() => enterValue(cc)"
+                                    @ontouchstart="() => enterValue(cc)"
+                                    @bind-value="cc" 
+                                    readonly/>
+                                <!--<button type="button" class="btn btn-primary btn-square-sm" @onclick="() => enterValue(cc)">@c</button>-->
+                            </td>
+                        }
+                    </tr>
+                </table>
+            </div>
+        </div>
+    }
+    
     </div>
     </div>
     <br>
+    <select class="form-select" aria-label="Default select example" @bind="difficulty">
+        <option selected>Select Difficulty</option>
+        <option value="1">Easy</option>
+        <option value="2">Medium</option>
+        <option value="3">Hard</option>
+    </select>
+    <br>
     <button class="btn btn-primary" @onclick="GenerateGrid">Generate</button>
+
 </div>
-<p>
-    cy = @cY
-    cx = @cX
-</p>
 
 
 @code
@@ -209,16 +223,41 @@
     int cellIdx = 0;
     int cY;
     int cX;
+    string Message = "";
+    string AlertType = "alert-success";
+    int difficulty;
     void GenerateGrid(){
         generator = new SudokuGenerator();
-        generator.removalQty = 10;
+
+        switch (difficulty)
+        {
+            case 1:
+                generator.removalQty = 20;
+                break;
+            case 2:
+                generator.removalQty = 40;
+                break;
+            case 3:
+                generator.removalQty = 60;
+                break;
+            default:
+                generator.removalQty = 20;
+                break;
+        }
+        
         generator.GenerateGrid();
+        Message = "";
+        AlertType = "alert-success";
     }
 
     void enterValue(int val){
         if (!generator.grid[cY,cX].isSet)
         {
             generator.grid[cY,cX].currentvalue = val;
+            bool checkFull = generator.CheckFilled();
+            bool checkwin = generator.CheckGridComplete();
+            if (checkwin && checkFull){Message = "Congratulations you win"; AlertType = "alert-success";}
+            if (!checkwin && checkFull){Message = "Hardlines, you lose"; AlertType = "alert-danger";}
             //generator.grid[cY,cX].isSet  = true;
             //StateHasChanged();
         }
