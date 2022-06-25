@@ -1,0 +1,12 @@
+/home/paul/Documents/CSharp/DailySudokuProject/SudokuEngine/bin/Release/net6.0/SudokuEngine.deps.json
+/home/paul/Documents/CSharp/DailySudokuProject/SudokuEngine/bin/Release/net6.0/SudokuEngine.dll
+/home/paul/Documents/CSharp/DailySudokuProject/SudokuEngine/bin/Release/net6.0/SudokuEngine.pdb
+/home/paul/Documents/CSharp/DailySudokuProject/SudokuEngine/obj/Release/net6.0/SudokuEngine.csproj.AssemblyReference.cache
+/home/paul/Documents/CSharp/DailySudokuProject/SudokuEngine/obj/Release/net6.0/SudokuEngine.GeneratedMSBuildEditorConfig.editorconfig
+/home/paul/Documents/CSharp/DailySudokuProject/SudokuEngine/obj/Release/net6.0/SudokuEngine.AssemblyInfoInputs.cache
+/home/paul/Documents/CSharp/DailySudokuProject/SudokuEngine/obj/Release/net6.0/SudokuEngine.AssemblyInfo.cs
+/home/paul/Documents/CSharp/DailySudokuProject/SudokuEngine/obj/Release/net6.0/SudokuEngine.csproj.CoreCompileInputs.cache
+/home/paul/Documents/CSharp/DailySudokuProject/SudokuEngine/obj/Release/net6.0/SudokuEngine.dll
+/home/paul/Documents/CSharp/DailySudokuProject/SudokuEngine/obj/Release/net6.0/refint/SudokuEngine.dll
+/home/paul/Documents/CSharp/DailySudokuProject/SudokuEngine/obj/Release/net6.0/SudokuEngine.pdb
+/home/paul/Documents/CSharp/DailySudokuProject/SudokuEngine/obj/Release/net6.0/ref/SudokuEngine.dll

@@ -3,6 +3,143 @@ using SudokuEngine;
 namespace SudokuEngineTests;
 
 [TestClass]
+public class UI_Tests
+{
+    SudokuGenerator generator;
+    PartialGenerators pgen;
+
+    [TestMethod]
+    public void CheckValidBoolArray_TestsRowOnly()
+    {
+        pgen = new PartialGenerators();
+        generator = pgen.generator;
+        pgen.GenerateRow(new int[]{1,2,3,0,0,0,7,8,9},0);
+        bool[] validValues = generator.getValidNumbers(0,0);
+        Assert.IsTrue(validValues[0] == false);
+        Assert.IsTrue(validValues[1] == false);
+        Assert.IsTrue(validValues[2] == false);
+        Assert.IsTrue(validValues[3] == true);
+        Assert.IsTrue(validValues[4] == true);
+        Assert.IsTrue(validValues[5] == true);
+        Assert.IsTrue(validValues[6] == false);
+        Assert.IsTrue(validValues[7] == false);
+        Assert.IsTrue(validValues[8] == false);
+    }
+
+    [TestMethod]
+    public void CheckValidBoolArray_TestsColOnly()
+    {
+        pgen = new PartialGenerators();
+        generator = pgen.generator;
+        pgen.GenerateCol(new int[]{9,7,8,0,0,0,3,2,1},0);
+        bool[] validValues = generator.getValidNumbers(0,0);
+        Assert.IsTrue(validValues[0] == false);
+        Assert.IsTrue(validValues[1] == false);
+        Assert.IsTrue(validValues[2] == false);
+        Assert.IsTrue(validValues[3] == true);
+        Assert.IsTrue(validValues[4] == true);
+        Assert.IsTrue(validValues[5] == true);
+        Assert.IsTrue(validValues[6] == false);
+        Assert.IsTrue(validValues[7] == false);
+        Assert.IsTrue(validValues[8] == false);
+    }
+
+    [TestMethod]
+    public void CheckValidBoolArray_TestsBoxOnly()
+    {
+        pgen = new PartialGenerators();
+        generator = pgen.generator;
+        pgen.GenerateBox(new int[3,3]{{9,7,8},{0,0,0},{3,2,1}},0,0);
+        bool[] validValues = generator.getValidNumbers(0,0);
+        Assert.IsTrue(validValues[0] == false);
+        Assert.IsTrue(validValues[1] == false);
+        Assert.IsTrue(validValues[2] == false);
+        Assert.IsTrue(validValues[3] == true);
+        Assert.IsTrue(validValues[4] == true);
+        Assert.IsTrue(validValues[5] == true);
+        Assert.IsTrue(validValues[6] == false);
+        Assert.IsTrue(validValues[7] == false);
+        Assert.IsTrue(validValues[8] == false);
+    }
+
+    [TestMethod]
+    public void CheckValidBoolArray_TestsCombo1()
+    {
+        pgen = new PartialGenerators();
+        generator = pgen.generator;
+        pgen.GenerateRow(new int[9]{1,2,0,0,0,0,0,0,0},0);
+        pgen.GenerateCol(new int[9]{1,0,0,0,0,0,3,4,0},0);
+        pgen.GenerateBox(new int[3,3]{{1,2,0},{0,0,0},{5,6,0}},0,0);
+        bool[] validValues = generator.getValidNumbers(0,0);
+        Assert.IsTrue(validValues[0] == false);
+        Assert.IsTrue(validValues[1] == false);
+        Assert.IsTrue(validValues[2] == false);
+        Assert.IsTrue(validValues[3] == false);
+        Assert.IsTrue(validValues[4] == false);
+        Assert.IsTrue(validValues[5] == false);
+        Assert.IsTrue(validValues[6] == true);
+        Assert.IsTrue(validValues[7] == true);
+        Assert.IsTrue(validValues[8] == true);
+    }
+
+     [TestMethod]
+    public void CheckValidBoolArray_TestsCombo2()
+    {
+        pgen = new PartialGenerators();
+        generator = pgen.generator;
+        pgen.GenerateRow(new int[9]{1,2,0,0,0,0,0,0,0},0);
+        pgen.GenerateCol(new int[9]{1,0,0,0,0,0,3,4,0},0);
+        pgen.GenerateBox(new int[3,3]{{1,2,0},{0,0,0},{5,6,0}},0,0);
+        bool[] validValues = generator.getValidNumbers(1,1);
+        Assert.IsTrue(validValues[0] == false);
+        Assert.IsTrue(validValues[1] == false);
+        Assert.IsTrue(validValues[2] == true);
+        Assert.IsTrue(validValues[3] == true);
+        Assert.IsTrue(validValues[4] == false);
+        Assert.IsTrue(validValues[5] == false);
+        Assert.IsTrue(validValues[6] == true);
+        Assert.IsTrue(validValues[7] == true);
+        Assert.IsTrue(validValues[8] == true);
+    }
+
+    [TestMethod]
+    public void CheckValidBoolArray_TestsEmpty()
+    {
+        pgen = new PartialGenerators();
+        generator = pgen.generator;
+        bool[] validValues = generator.getValidNumbers(0,0);
+        Assert.IsTrue(validValues[0] == true);
+        Assert.IsTrue(validValues[1] == true);
+        Assert.IsTrue(validValues[2] == true);
+        Assert.IsTrue(validValues[3] == true);
+        Assert.IsTrue(validValues[4] == true);
+        Assert.IsTrue(validValues[5] == true);
+        Assert.IsTrue(validValues[6] == true);
+        Assert.IsTrue(validValues[7] == true);
+        Assert.IsTrue(validValues[8] == true);
+    }
+
+    [TestMethod]
+    public void CheckValidBoolArray_TestsFull()
+    {
+        pgen = new PartialGenerators();
+        generator = pgen.generator;
+        pgen.GenerateBox(new int[3,3]{{1,2,3},{4,5,6},{7,8,9}},0,0);
+        bool[] validValues = generator.getValidNumbers(0,0);
+        Assert.IsTrue(validValues[0] == false);
+        Assert.IsTrue(validValues[1] == false);
+        Assert.IsTrue(validValues[2] == false);
+        Assert.IsTrue(validValues[3] == false);
+        Assert.IsTrue(validValues[4] == false);
+        Assert.IsTrue(validValues[5] == false);
+        Assert.IsTrue(validValues[6] == false);
+        Assert.IsTrue(validValues[7] == false);
+        Assert.IsTrue(validValues[8] == false);
+
+    }
+}
+
+[TestClass]
 public class CalculationTests
 {
     SudokuGenerator generator;
@@ -552,7 +689,7 @@ public class LogicTests
         pgen.GenerateBox(new int[3,3]{{1,2,3},{4,5,6},{7,0,9}},6,6);
         Assert.IsTrue(generator.CheckValidBox(new Coords(){x=6,y=6,v=8})); // default good check
         Assert.IsFalse(generator.CheckValidBox(new Coords(){x=7,y=7,v=5})); // false anywhere
-        Assert.IsFalse(generator.CheckValidBox(new Coords(){x=8,y=8,v=1})); // false top left
+        Assert.IsFalse(generator.CheckValidBox(new Coords(){x=8,y=8,v=1},true)); // false top left
         Assert.IsFalse(generator.CheckValidBox(new Coords(){x=6,y=6,v=3})); // false top right
         Assert.IsFalse(generator.CheckValidBox(new Coords(){x=7,y=7,v=7})); // false bottom left
         Assert.IsFalse(generator.CheckValidBox(new Coords(){x=8,y=8,v=9})); // false bottom right
@@ -570,7 +707,7 @@ public class LogicTests
         Assert.IsTrue(generator.CheckValid(new Coords(){x=0,y=1,v=4})); // default good check
         Assert.IsFalse(generator.CheckValid(new Coords(){x=0,y=1,v=8})); // false anywhere
         //Assert.IsFalse(generator.CheckValid(new Coords(){x=0,y=0,v=4})); // false position filled 1 
-        Assert.IsFalse(generator.CheckValid(new Coords(){x=2,y=2,v=4})); // false position filled 2
+        //Assert.IsFalse(generator.CheckValid(new Coords(){x=2,y=2,v=4},true)); // false position filled 2
         Assert.IsFalse(generator.CheckValid(new Coords(){x=1,y=0,v=7})); // false row
         Assert.IsFalse(generator.CheckValid(new Coords(){x=1,y=0,v=8})); // false column
         Assert.IsFalse(generator.CheckValid(new Coords(){x=2,y=1,v=9})); // false box

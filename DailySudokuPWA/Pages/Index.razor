@@ -1,0 +1,324 @@
+﻿@page "/"
+@inject SudokuGenerator generator;
+
+<PageTitle>Daily Sudoku</PageTitle>
+
+<div class="container">
+    <div class="row">
+        <div class="col-12">
+            <div class="row">
+                <div class="col-12 text-center">
+                    <h1>Daily Sudoku</h1>
+                </div>
+            </div>
+                <div class="row">
+        <div class="col-12 dflex justify-content-center">
+    @if (generator != null)
+    {
+        cellIdx = 0;
+        <style>
+            table { border-collapse: collapse; font-family: Calibri, sans-serif; }
+            colgroup, tbody { border: solid medium; }
+            td { border: solid thin; height: 1.5em; width: 1.5em; text-align: center; padding: 0; }
+        </style>
+        <table class=center>
+            <colgroup><col><col><col></colgroup>
+            <colgroup><col><col><col></colgroup>
+            <colgroup><col><col><col></colgroup>
+            <tbody>
+            @for (int y = 0; y < 3; y++)
+            {
+                <tr>
+                    @for (int x = 0; x < 9; x++)
+                    {
+                        int iCX = x;
+                        int iCY = y;
+                        <td>
+                            @if (@generator.grid[y,x].isSet)
+                            {
+                                <input @bind-value="generator.grid[y,x].currentvalue"
+                                    @onclick="() => setSelected(iCY,iCX)"
+                                    @onmousedown="() => setSelected(iCY,iCX)"
+                                    @ontouchstart="() => setSelected(iCY,iCX)"
+                                    @ontouchmove="() => setSelected(iCY,iCX)"
+                                    disabled
+                                >
+                            }
+                            else
+                            {
+                                @if (generator.grid[y,x].currentvalue == 0)
+                                {
+                                    <input
+                                    @onclick="() => setSelected(iCY,iCX)"
+                                    @onmousedown="() => setSelected(iCY,iCX)"
+                                    @ontouchstart="() => setSelected(iCY,iCX)"
+                                    @ontouchmove="() => setSelected(iCY,iCX)"
+                                    readonly
+                                    >
+                                } else {
+                                    <input @bind-value="generator.grid[y,x].currentvalue"
+                                    @onclick="() => setSelected(iCY,iCX)"
+                                    @onmousedown="() => setSelected(iCY,iCX)"
+                                    @ontouchstart="() => setSelected(iCY,iCX)"
+                                    @ontouchmove="() => setSelected(iCY,iCX)"
+                                    readonly
+                                    >
+                                }
+                                
+                            }
+                            
+                        </td>
+                    }
+                </tr>
+            }
+            </tbody>
+
+            <tbody>
+            @for (int y = 3; y < 6; y++)
+            {
+                <tr>
+                    @for (int x = 0; x < 9; x++)
+                    {
+                        int iCX = x;
+                        int iCY = y;
+                        <td>
+                            @if (@generator.grid[y,x].isSet)
+                            {
+                                <input @bind-value="generator.grid[y,x].currentvalue"
+                                    @onclick="() => setSelected(iCY,iCX)"
+                                    @onmousedown="() => setSelected(iCY,iCX)"
+                                    @ontouchstart="() => setSelected(iCY,iCX)"
+                                    @ontouchmove="() => setSelected(iCY,iCX)"
+                                    disabled
+                                >
+                            }
+                            else
+                            {
+                                @if (generator.grid[y,x].currentvalue == 0)
+                                {
+                                    <input
+                                    @onclick="() => setSelected(iCY,iCX)"
+                                    @onmousedown="() => setSelected(iCY,iCX)"
+                                    @ontouchstart="() => setSelected(iCY,iCX)"
+                                    @ontouchmove="() => setSelected(iCY,iCX)"
+                                    readonly
+                                    >
+                                } else {
+                                    <input @bind-value="generator.grid[y,x].currentvalue"
+                                    @onclick="() => setSelected(iCY,iCX)"
+                                    @onmousedown="() => setSelected(iCY,iCX)"
+                                    @ontouchstart="() => setSelected(iCY,iCX)"
+                                    @ontouchmove="() => setSelected(iCY,iCX)"
+                                    readonly
+                                    >
+                                }
+                            }
+                            
+                        </td>
+                    }
+                </tr>
+            }
+            </tbody>
+
+            <tbody>
+            @for (int y = 6; y < 9; y++)
+            {
+                <tr>
+                    @for (int x = 0; x < 9; x++)
+                    {
+                        int iCX = x;
+                        int iCY = y;
+                        <td>
+                            @if (@generator.grid[y,x].isSet)
+                            {
+                                <input @bind-value="generator.grid[y,x].currentvalue"
+                                    @onclick="() => setSelected(iCY,iCX)"
+                                    @onmousedown="() => setSelected(iCY,iCX)"
+                                    @ontouchstart="() => setSelected(iCY,iCX)"
+                                    @ontouchmove="() => setSelected(iCY,iCX)"
+                                    disabled
+                                >
+                            }
+                            else
+                            {
+                                @if (generator.grid[y,x].currentvalue == 0)
+                                {
+                                    <input
+                                    @onclick="() => setSelected(iCY,iCX)"
+                                    @onmousedown="() => setSelected(iCY,iCX)"
+                                    @ontouchstart="() => setSelected(iCY,iCX)"
+                                    @ontouchmove="() => setSelected(iCY,iCX)"
+                                    readonly
+                                    >
+                                } else {
+                                    <input @bind-value="generator.grid[y,x].currentvalue"
+                                    @onclick="() => setSelected(iCY,iCX)"
+                                    @onmousedown="() => setSelected(iCY,iCX)"
+                                    @ontouchstart="() => setSelected(iCY,iCX)"
+                                    @ontouchmove="() => setSelected(iCY,iCX)"
+                                    readonly
+                                    >
+                                }
+                            }
+                            
+                        </td>
+                    }
+                </tr>
+            }
+            </tbody>
+        </table>
+    }
+    </div>
+    </div>
+    <br>
+    <br>
+    @if (Message != "")
+    {
+        <div class="alert @AlertType" role="alert">
+            @Message
+        </div>
+    }
+    else
+    {
+        <div class="row">
+            <div class="col-12 dflex justify-content-center">
+                <table class="center">
+                    <tr >
+                        @for (int c = 1; c < 10; c++)
+                        {
+                            int cc = c;
+                            <td>
+                                @if (Enabled[c-1])
+                                {
+                                    <input 
+                                        @onclick="() => enterValue(cc)"
+                                        @onmousedown="() => enterValue(cc)"
+                                        @ontouchstart="() => enterValue(cc)"
+                                        @bind-value="cc" 
+                                        readonly
+                                    />
+                                }
+                                else
+                                {
+                                    <input 
+                                        @onclick="() => enterValue(cc)"
+                                        @onmousedown="() => enterValue(cc)"
+                                        @ontouchstart="() => enterValue(cc)"
+                                        @bind-value="cc" 
+                                        disabled
+                                    />
+                                }
+                            </td>
+                        }
+                    </tr>
+                </table>
+            </div>
+        </div>
+    }
+    
+    </div>
+    </div>
+    <br>
+    <select class="form-select" aria-label="Default select example" @bind="difficulty">
+        <option selected>Select Difficulty</option>
+        <option value="1">Easy</option>
+        <option value="2">Medium</option>
+        <option value="3">Hard</option>
+    </select>
+    <!--
+    <div class="form-check form-switch">
+        <input class="form-check-input" type="checkbox" @bind-value="EnableHint" id="flexSwitchCheckDefault">
+        <label class="form-check-label" for="flexSwitchCheckDefault">Enable Hints</label>
+    </div>
+    -->
+    <div class="form-check form-check-inline">
+        <input class="form-check-input" type="checkbox" id="inlineCheckbox1" @bind-value="EnableHint">
+        <label class="form-check-label" for="inlineCheckbox1">Enable Hints</label>
+    </div>
+    <!--
+    <div class="form-check">
+        <input type="checkbox" class="form-check-input" @bind-value="EnableHint" id="flexCheckDefault" />
+            <label class="form-check-label" for="flexCheckDefault">
+                Enable Hints
+            </label>
+    </div>
+    -->
+    <br>
+    <button class="btn btn-secondary" @onclick="GenerateGrid"  >Generate</button>
+
+</div>
+
+
+@code
+{
+    int cellIdx = 0;
+    int cY;
+    int cX;
+    string Message = "";
+    string AlertType = "alert-success";
+    int difficulty;
+    bool EnableHint = true;
+    bool[] Enabled = new bool[9]{true,true,true,true,true,true,true,true,true}; // Ensure array is initialised with all true values until first setSelected call
+    void GenerateGrid(){
+        generator = new SudokuGenerator();
+
+        switch (difficulty)
+        {
+            case 1:
+                generator.removalQty = 20;
+                break;
+            case 2:
+                generator.removalQty = 40;
+                break;
+            case 3:
+                generator.removalQty = 60;
+                break;
+            default:
+                generator.removalQty = 20;
+                break;
+        }
+        
+        generator.GenerateGrid();
+        Message = "";
+        AlertType = "alert-success";
+    }
+
+    void enterValue(int val){
+        if (!generator.grid[cY,cX].isSet)
+        {
+            generator.grid[cY,cX].currentvalue = val;
+            bool checkFull = generator.CheckFilled();
+            bool checkwin = generator.CheckGridComplete();
+            if (checkwin && checkFull){Message = "Congratulations you win"; AlertType = "alert-success";}
+            if (!checkwin && checkFull){Message = "Hardlines, you lose"; AlertType = "alert-danger";}
+            //generator.grid[cY,cX].isSet  = true;
+            //StateHasChanged();
+        }
+    }
+
+    void setSelected(int y, int x)
+    {
+        cX = x;
+        cY = y;
+        if (EnableHint)
+        {
+            Enabled = generator.getValidNumbers(cY,cX);
+        } 
+        else 
+        {
+            Enabled = new bool[9]{true,true,true,true,true,true,true,true,true};
+        }
+    }
+
+    string getStatus(Square sq)
+    {
+        if (sq.isSet)
+        {
+            return "disabled";
+        }
+        else
+        {
+            return "";
+        }
+    }
+}

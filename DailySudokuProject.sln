@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SudokuEngineTests", "Sudoku
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DailySudoku", "DailySudoku\DailySudoku.csproj", "{F39EC14B-AE75-4E58-882F-E0789AA77135}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DailySudokuPWA", "DailySudokuPWA\DailySudokuPWA.csproj", "{4B0C07F7-03C1-464A-96DA-B6AD57B25C3B}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -30,5 +32,9 @@ Global
 		{F39EC14B-AE75-4E58-882F-E0789AA77135}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F39EC14B-AE75-4E58-882F-E0789AA77135}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F39EC14B-AE75-4E58-882F-E0789AA77135}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4B0C07F7-03C1-464A-96DA-B6AD57B25C3B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4B0C07F7-03C1-464A-96DA-B6AD57B25C3B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4B0C07F7-03C1-464A-96DA-B6AD57B25C3B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4B0C07F7-03C1-464A-96DA-B6AD57B25C3B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

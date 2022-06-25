@@ -145,6 +145,62 @@ public class SudokuGenerator
             //Console.WriteLine("Whoopee"); // if im here then the algorithm has worked :)
         }
 
+        /// <summary>
+        /// Returns an array of 9 booleans, indicating which numbers from 1-9 are valid for display on a given 
+        /// selection of the board
+        /// </summary>
+        /// <param name="y">y coordintate of the current selection (0-8)</param>
+        /// <param name="x">x coordintate of the current selection (0-8)</param>
+        /// <returns></returns>
+        public bool[] getValidNumbers(int _y, int _x)
+        {
+            // initially set values in array to true, each function will set false in positions where not valid
+            bool [] validSelections = new bool[9]{true,true,true,true,true,true,true,true,true};
+            Coords coords = new Coords()
+            {
+                x = _x,
+                y = _y,
+                v = 0
+            };
+
+            // First scan the row at Y coordinate for values
+            for (int x = 0; x < 9; x++)
+            {
+                if (grid[_y,x].currentvalue != 0)
+                {
+                    validSelections[(grid[_y,x].currentvalue-1)] = false;
+                }
+            }
+
+            // Second scan the Col at X coordinate for values
+            for (int y = 0; y < 9; y++)
+            {
+                if (grid[y,_x].currentvalue != 0)
+                {
+                    validSelections[(grid[y,_x].currentvalue-1)] = false;
+                }
+            }
+
+            // Lastly scan current box for values
+            int boxNo = GetBoxNo(coords);
+
+            for (int y = 0; y < 3; y++)
+            {
+                int by = GetYStart(boxNo);
+                for (int x = 0; x < 3; x++)
+                {
+                    int bx = GetXStart(boxNo);
+                    if(grid[by + y,bx + x].currentvalue != 0)
+                    {
+                        validSelections[(grid[by + y,bx + x].currentvalue-1)] = false;
+                    }
+                }
+            }
+
+            return validSelections;
+
+        }
+
         // takes an input element of type square, selects a random element from the list
         // removes this element from the list, and sets this value as the current square value
         // if no elements are in the list to select, then this function returns false

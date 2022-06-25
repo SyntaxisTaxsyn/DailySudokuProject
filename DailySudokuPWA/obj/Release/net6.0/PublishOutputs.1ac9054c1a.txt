@@ -1,0 +1,1 @@
+/home/paul/Documents/CSharp/DailySudokuProject/DailySudokuPWA/bin/Release/net6.0/publish/web.config
