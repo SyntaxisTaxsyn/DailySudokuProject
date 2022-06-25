@@ -1,9 +1,5 @@
 name: Deploy to GitHub Pages
 
-defaults:
-  run:
-    working-directory: DailySudokuPWA
-
 # Run workflow on every push to the master branch
 on:
   push:
@@ -21,13 +17,10 @@ jobs:
       with:
         dotnet-version: 6.0.x
         
-    # test cli commands
-    - name: Test cli commands
-      run: dir
-        
     # publishes Blazor project to the release-folder
     - name: Publish .NET Core Project
-      run: dotnet publish DailySudokuPWA.csproj -c Release -o release --nologo
+      working-directory: ./DailySudokuPWA
+      run: dotnet publish DailySudokuPWA.csproj -c Release -o ../release --nologo
     # changes the base-tag in index.html from '/' to 'DailySudokuProject' to match GitHub Pages repository subdirectory
     - name: Change base-tag in index.html from / to DailySudokuProject
       run: sed -i 's/<base href="\/" \/>/<base href="\/DailySudokuProject\/" \/>/g' release/wwwroot/index.html
